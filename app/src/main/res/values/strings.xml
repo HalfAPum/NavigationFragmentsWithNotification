@@ -4,4 +4,8 @@
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="create_new_notification">Create new notification</string>
   <string name="minus_action">Minus action</string>
+  <string name="you_create_a_notification">You create a notification</string>
+  <string name="notification">Notification</string>
+  <string name="messenger">Messenger</string>
+  <string name="channel_description">Channel for fragment messages</string>
 </resources>

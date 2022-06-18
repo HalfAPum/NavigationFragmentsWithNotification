@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/notificaion_button_background.xml" value="0.211" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31927083333333334" />
         <entry key="app/src/main/res/layout/fragment_notification_counter.xml" value="0.3703256936067551" />
+        <entry key="app/src/main/res/layout/navigation_fragment.xml" value="0.3182291666666667" />
       </map>
     </option>
   </component>

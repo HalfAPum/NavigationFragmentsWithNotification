@@ -4,6 +4,7 @@
   package="oleksand.narvatov.navigationfragmentswithnotification">
 
   <application
+    android:name=".ui.application.NavApplication"
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
     android:fullBackupContent="@xml/backup_rules"
@@ -14,8 +15,9 @@
     android:theme="@style/Theme.NavigationFragmentsWithNotification"
     tools:targetApi="31">
     <activity
-      android:name=".MainActivity"
-      android:exported="true">
+      android:name=".ui.activity.MainActivity"
+      android:exported="true"
+      android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

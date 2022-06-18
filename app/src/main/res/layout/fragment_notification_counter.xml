@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/teal_dark"
-  tools:context=".NotificationCounterFragment">
+  tools:context=".ui.fragment.NotificationCounterFragment">
 
   <FrameLayout
     android:id="@+id/create_notification_button"
