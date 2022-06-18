@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="notification_button_size">166dp</dimen>
+  <dimen name="notification_button_margin_top">143dp</dimen>
+  <dimen name="default_elevation">10dp</dimen>
+  <dimen name="notification_button_text_size">20sp</dimen>
+  <dimen name="max_corner_radius">100dp</dimen>
+  <dimen name="counter_height">50dp</dimen>
+  <dimen name="counter_margin_bottom">35dp</dimen>
+  <dimen name="counter_margin_horizontal">30dp</dimen>
+  <dimen name="counter_text_size">24sp</dimen>
+</resources>
