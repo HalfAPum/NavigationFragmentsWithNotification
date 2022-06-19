@@ -10,11 +10,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import oleksand.narvatov.navigationfragmentswithnotification.R
+import oleksand.narvatov.navigationfragmentswithnotification.data.storage.SharedPrefFragmentsStorage
 import oleksand.narvatov.navigationfragmentswithnotification.databinding.ActivityMainBinding
 import oleksand.narvatov.navigationfragmentswithnotification.entity.FragmentAction
 import oleksand.narvatov.navigationfragmentswithnotification.ui.adapter.FragmentAdapter
 import oleksand.narvatov.navigationfragmentswithnotification.ui.fragment.NotificationCounterFragment
 import oleksand.narvatov.navigationfragmentswithnotification.ui.viewmodel.SharedViewModel
+import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -24,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by viewModels()
 
     private val fragmentAdapter by lazy { FragmentAdapter(this) }
+
+    @Inject
+    lateinit var sharedPrefFragmentsStorage: SharedPrefFragmentsStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +47,24 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModels() {
         lifecycleScope.launchWhenStarted {
             sharedViewModel.fragmentActionStateFlow.collectLatest { action ->
-                if (action is FragmentAction.CreateNextFragment) {
-                    fragmentAdapter.addFragment(action.page)
+                when(action) {
+                    is FragmentAction.CreateBunchOfFragments -> {
+                        fragmentAdapter.addFragments(action.count)
+                    }
+                    is FragmentAction.CreateNextFragment -> {
+                        fragmentAdapter.addFragment(action.page)
 
-                    binding.viewPager.currentItem = action.page.minus(1)
-                } else if (action is FragmentAction.DeleteFragment) {
-                    fragmentAdapter.removeLastFragment()
+                        binding.viewPager.currentItem = action.page.minus(1)
+                    }
+                    FragmentAction.DeleteFragment -> {
+                        fragmentAdapter.removeLastFragment()
+                    }
                 }
             }
         }
-        sharedViewModel.sendFragmentAction(FragmentAction.CreateNextFragment())
+
+        val fragmentsCount = sharedPrefFragmentsStorage.loadFragments()
+        sharedViewModel.sendFragmentAction(FragmentAction.CreateBunchOfFragments(fragmentsCount))
     }
 
     private fun initViews() {
@@ -58,6 +72,11 @@ class MainActivity : AppCompatActivity() {
             adapter = fragmentAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        sharedPrefFragmentsStorage.storeFragments(fragmentAdapter.itemCount)
     }
 
     companion object {

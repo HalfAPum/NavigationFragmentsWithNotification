@@ -108,19 +108,8 @@ class NotificationCounterFragment : Fragment(R.layout.fragment_notification_coun
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Timber.d("tag1 WTF PPP")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.d("tag1 WTF SSSS")
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        Timber.d("tag1 WTF DDD")
         val notificationManager = requireActivity().
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationsList.forEach { notificationManager.cancel(it) }

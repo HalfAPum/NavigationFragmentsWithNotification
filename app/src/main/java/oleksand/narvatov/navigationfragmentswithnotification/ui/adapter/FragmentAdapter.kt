@@ -22,6 +22,13 @@ class FragmentAdapter(
         notifyDataSetChanged()
     }
 
+    fun addFragments(count: Int) {
+        val fragments = List(count) { it.plus(1) }
+
+        fragmentList.addAll(fragments)
+        notifyDataSetChanged()
+    }
+
     fun removeLastFragment() {
         notifyItemRemoved(fragmentList.lastIndex)
         fragmentList.removeLast()
