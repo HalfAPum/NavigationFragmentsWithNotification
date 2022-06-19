@@ -36,6 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initViewModels()
         initViews()
+
+        //Get page from notification if app was closed
+        val selectedPage = intent?.getIntExtra(SELECTED_PAGE, DEFAULT_SELECTED_PAGE) ?: DEFAULT_SELECTED_PAGE
+        //Use post to wait fragmentAdapter initialization
+        binding.root.post {
+            binding.viewPager.setCurrentItem(selectedPage.minus(1), true)
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
