@@ -42,11 +42,9 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             sharedViewModel.fragmentActionStateFlow.collectLatest { action ->
                 if (action is FragmentAction.CreateNextFragment) {
-                    fragmentAdapter.addFragment(
-                        action.page,
-                        NotificationCounterFragment.create(action.page)
-                    )
-                    binding.viewPager.currentItem = action.page
+                    fragmentAdapter.addFragment(action.page)
+
+                    binding.viewPager.currentItem = action.page.minus(1)
                 } else if (action is FragmentAction.DeleteFragment) {
                     fragmentAdapter.removeLastFragment()
                 }
